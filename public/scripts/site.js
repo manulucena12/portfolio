@@ -23,7 +23,7 @@
       'hero.title1': 'Estudiante de Ingeniería', 'hero.title2': '& Profesor.',
       'hero.descMain': 'Fundador de la Academia Aprueba Sin Líos, especializada en física universitaria. Me dedico a la enseñanza y al desarrollo de aplicaciones para simplificar conceptos complejos.',
       'about.tag': 'PERFIL & TRAYECTORIA', 'about.title': 'Sobre Mí',
-      'about.lead': 'Soy Manuel Lucena. Combino mi formación en Ingeniería con mi pasión por la enseñanza y la tecnología web para transmitir conocimiento de forma estructurada y eficaz.',
+      'about.lead': 'Soy Manuel Lucena. Estoy constantemente trabajando y formándome para crear soluciones que ayuden al mundo.',
       'about.workTitle': 'Experiencia Laboral', 'about.w2026.role': 'Fundador & Profesor', 'about.w2026.company': 'Aprueba Sin Líos',
       'about.w2025.role': 'Profesor Independiente', 'about.w2025.company': 'Clases particulares de física & programación',
       'about.eduTitle': 'Estudios', 'about.c1': 'Certificación Avanzada de Inglés',
@@ -35,6 +35,7 @@
       'projects.aslDesc': 'Plataforma complementaria para las clases de alumnos de física, con problemas, exámenes y reservas',
       'contact.tag': 'CONTACTO & REDES', 'contact.title': 'Contacto',
       'contact.lead': 'Gracias por interesarte por mí, aquí te dejo sitios donde podemos contactar:',
+
 
       'asl.back': 'Volver al portfolio',
       'asl.aboutTitle': 'Sobre el proyecto',
@@ -63,7 +64,7 @@
       'hero.title1': 'Engineering Student', 'hero.title2': '& Educator.',
       'hero.descMain': 'Founder of Academia Aprueba Sin Líos, specializing in university physics. I focus on teaching and building applications to simplify complex concepts.',
       'about.tag': 'PROFILE & BACKGROUND', 'about.title': 'About Me',
-      'about.lead': 'I am Manuel Lucena. I combine my engineering background with a passion for teaching and web technology to share technical knowledge in a structured, effective way.',
+      'about.lead': "I'm Manuel Lucena. I'm constantly working and studying to create solutions that help the world.",
       'about.workTitle': 'Work Experience', 'about.w2026.role': 'Founder & Educator', 'about.w2026.company': 'Aprueba Sin Líos',
       'about.w2025.role': 'Independent Educator', 'about.w2025.company': 'Private tutoring in physics & programming',
       'about.eduTitle': 'Education', 'about.c1': 'Cambridge English C1 Advanced',
@@ -75,6 +76,7 @@
       'projects.aslDesc': "Complementary platform for physics students' classes, featuring problems, exams, and bookings",
       'contact.tag': 'CONTACT & SOCIAL', 'contact.title': 'Contact',
       'contact.lead': 'Thank you for your interest in my work. Here is how you can reach me:',
+
 
       'asl.back': 'Back to portfolio',
       'asl.aboutTitle': 'About the project',
@@ -192,5 +194,32 @@
       // Si se entra con hash directo (/​#projects), marcarlo ya
       if (window.location.hash) setActive(window.location.hash.slice(1));
     }
+
+    // Navegación por anclas SIN recarga MPA: si el destino está en esta
+    // misma página, scroll animado + active inmediato (inicio → arriba del todo).
+    function smoothAnchor(link, targetId, scrollFn) {
+      link.addEventListener('click', function (e) {
+        if (window.location.pathname !== '/') return; // otra página: navegar normal
+        var target = document.getElementById(targetId);
+        if (!target && targetId !== 'home') return;
+        e.preventDefault();
+        scrollFn(target);
+        try { history.pushState(null, '', '/#' + targetId); } catch (err) {}
+        setActive(targetId);
+      });
+    }
+    navLinks.forEach(function (link) {
+      var href = link.getAttribute('href') || '';
+      if (href.indexOf('/#') !== 0) return;
+      var id = href.slice(2);
+      smoothAnchor(link, id, function (target) {
+        if (id === 'home') window.scrollTo({ top: 0, behavior: 'smooth' });
+        else target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+    var brand = document.querySelector('.brand-profile');
+    if (brand) smoothAnchor(brand, 'home', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   });
 })();

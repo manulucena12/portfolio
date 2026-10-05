@@ -1,20 +1,17 @@
-# Slides con reveal.js (futuro, aislado)
+# Slides con reveal.js (aislado)
 
-Para no ensuciar el sitio liviano:
+Estructura por presentación (una carpeta, dos rutas):
 
-1. `bun add reveal.js` (NO hacerlo hasta necesitarlo)
-2. Crear `src/layouts/SlidesLayout.astro`:
-```astro
----
-import 'reveal.js/dist/reveal.css';
----
-<link rel="stylesheet" href="reveal.css" />
-<div class="reveal"><div class="slides"><slot /></div></div>
-<script type="module">
-  import Reveal from 'reveal.js';
-  new Reveal().initialize();
-</script>
 ```
-3. Usar ese layout SOLO en `src/pages/charlas/mi-charla.astro`.
+src/pages/presentaciones/mi-presentacion/
+  index.astro    → detalle + documento PDF bajo click (BaseLayout, 0 JS extra)
+  slides.astro   → presentación (SlidesLayout, único lugar con reveal.js)
+public/presentaciones/mi-presentacion/documento-tecnico.pdf
+src/assets/presentaciones/mi-presentacion/*  → imágenes vía <Image>
+```
 
-Así el resto (home, proyectos, contacto) sigue en 0 JS salvo `site.js` vanilla.
+Reglas para no ensuciar el sitio liviano:
+
+1. `reveal.js` se importa SOLO en `src/layouts/SlidesLayout.astro` (standalone, sin `BaseLayout` porque `global.css` chocaría con `reveal.css`).
+2. Nada de reveal en `BaseLayout`, `site.js` ni el resto de páginas. Astro lo empaqueta solo en las rutas de slides.
+3. El PDF vive en `public/` y el `<iframe>` se inyecta solo al hacer click en "Ver documento".

@@ -1,0 +1,147 @@
+---
+// LinearMap: UN vector que se estira de `from` a `to` sobre una grilla FIJA.
+// La grilla no se deforma (eso se leía como "zoom"); solo la flecha se alarga.
+// +y matemático hacia ARRIBA (scale(s,-s)), como en los libros.
+// Una sola pasada, replay manual, respeta prefers-reduced-motion.
+// props: from="1,1" to="2,2" detNote="..."
+const { from = '1,1', to = '2,2', detNote = '' } = Astro.props;
+const [fx, fy] = from.split(',').map(Number);
+const [tx, ty] = to.split(',').map(Number);
+const size = 320;
+const half = size / 2;
+const scale = 40;
+const range = 3.5;
+---
+<div class="linearmap" data-linearmap data-lm-from={from} data-lm-to={to}>
+  <svg viewBox={`0 0 ${size} ${size}`} role="img" aria-label={`Animación del vector (${from}) estirándose hasta (${to})`}>
+    <defs>
+      <marker id="lm-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 1 L 9 5 L 0 9 z" fill="#e11d48"></path>
+      </marker>
+    </defs>
+    <g transform={`translate(${half} ${half}) scale(${scale} ${-scale})`}>
+      <g data-lm-grid stroke="#cbd5e1" stroke-width="0.025"></g>
+      <line x1="-3.6" y1="0" x2="3.6" y2="0" stroke="#64748b" stroke-width="0.05" />
+      <line x1="0" y1="-3.6" x2="0" y2="3.6" stroke="#64748b" stroke-width="0.05" />
+      <line x1="0" y1="0" x2={fx} y2={fy} stroke="#94a3b8" stroke-width="0.07" stroke-dasharray="0.12 0.08" />
+      <line data-lm-arrow x1="0" y1="0" x2={fx} y2={fy} stroke="#e11d48" stroke-width="0.09" marker-end="url(#lm-arrow)" />
+      <circle data-lm-tip cx={fx} cy={fy} r="0.11" fill="#e11d48" />
+    </g>
+  </svg>
+  <p class="linearmap-cap">
+    <span style="color:#e11d48">●</span> v = ({from}) → ({to})&ensp;
+    <span class="linearmap-matrix" data-lm-coords></span>
+    {detNote && <span class="linearmap-det">{detNote}</span>}
+  </p>
+  <button class="linearmap-replay" type="button" data-lm-replay>↻ Repetir</button>
+</div>
+
+<style>
+  .linearmap { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
+  .linearmap svg { width: min(340px, 70vw); height: auto; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; }
+  .linearmap-cap { font-size: 0.85rem; color: #475569; margin: 0; text-align: center; }
+  .linearmap-matrix { font-family: ui-monospace, monospace; }
+  .linearmap-det { display: block; font-size: 0.8rem; color: #64748b; }
+  .linearmap-replay {
+    font-size: 0.8rem; font-weight: 600; cursor: pointer;
+    color: #0284c7; background: none; border: 1px solid #bae6fd;
+    border-radius: 8px; padding: 0.3rem 0.8rem;
+  }
+  .linearmap-replay:hover { border-color: #0284c7; }
+</style>
+
+<script>
+  (function () {
+    var instances = document.querySelectorAll('[data-linearmap]');
+    if (!instances.length) return;
+    instances.forEach(initMap);
+
+    function initMap(root) {
+      var NS = 'http://www.w3.org/2000/svg';
+      var arrow = root.querySelector('[data-lm-arrow]');
+      var tip = root.querySelector('[data-lm-tip]');
+      var grid = root.querySelector('[data-lm-grid]');
+      var coordsEl = root.querySelector('[data-lm-coords]');
+      var replayBtn = root.querySelector('[data-lm-replay]');
+
+      function parsePair(s, fallback) {
+        var p = String(s || '').split(',').map(Number);
+        if (p.length !== 2 || p.some(isNaN)) return fallback;
+        return p;
+      }
+      var from = parsePair(root.getAttribute('data-lm-from'), [1, 1]);
+      var to = parsePair(root.getAttribute('data-lm-to'), [2, 2]);
+
+      // Grilla FIJA: se construye UNA vez y nunca se toca (0 costo por frame,
+      // y al no deformarse no hay efecto "zoom").
+      for (var k = -3; k <= 3; k++) {
+        if (k === 0) continue;
+        var v = document.createElementNS(NS, 'line');
+        v.setAttribute('x1', k); v.setAttribute('y1', -3.5);
+        v.setAttribute('x2', k); v.setAttribute('y2', 3.5);
+        var h = document.createElementNS(NS, 'line');
+        h.setAttribute('x1', -3.5); h.setAttribute('y1', k);
+        h.setAttribute('x2', 3.5); h.setAttribute('y2', k);
+        grid.appendChild(v); grid.appendChild(h);
+      }
+
+      var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var t = 0;
+      var running = false;
+      var raf = 0;
+      var last = 0;
+
+      function ease(x) { return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2; }
+
+      function draw() {
+        var k = ease(t);
+        var x = from[0] + (to[0] - from[0]) * k;
+        var y = from[1] + (to[1] - from[1]) * k;
+        arrow.setAttribute('x2', x.toFixed(3));
+        arrow.setAttribute('y2', y.toFixed(3));
+        tip.setAttribute('cx', x.toFixed(3));
+        tip.setAttribute('cy', y.toFixed(3));
+        coordsEl.textContent = 'v(t) = (' + x.toFixed(2) + ', ' + y.toFixed(2) + ')';
+      }
+
+      function frame(now) {
+        if (!running) return;
+        var dt = Math.min((now - last) / 1000, 0.05);
+        last = now;
+        // UNA sola pasada: al llegar se detiene y queda el estado final.
+        t += dt * 0.4;
+        if (t >= 1) { t = 1; draw(); stop(); return; }
+        draw();
+        raf = requestAnimationFrame(frame);
+      }
+
+      function start() {
+        if (running || reduceMotion || t >= 1) return;
+        running = true;
+        last = performance.now();
+        raf = requestAnimationFrame(frame);
+      }
+
+      function stop() {
+        running = false;
+        cancelAnimationFrame(raf);
+      }
+
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { e.isIntersecting ? start() : stop(); });
+        }, { threshold: 0.3 }).observe(root);
+      } else {
+        start();
+      }
+
+      // Estado inicial = vector sin estirar; con reduced-motion, final directo.
+      if (reduceMotion) { t = 1; }
+      draw();
+
+      if (replayBtn) replayBtn.addEventListener('click', function () {
+        t = 0; draw(); start();
+      });
+    }
+  })();
+</script>

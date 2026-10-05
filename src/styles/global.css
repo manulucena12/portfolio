@@ -295,6 +295,8 @@ html[data-theme="yoshi-valley"] .timeline-year,
 html[data-theme="yoshi-valley"] .hero-overline { color: #047857; }
 html[data-theme="classic-light"] .section-tag,
 html[data-theme="koopa-beach"] .section-tag { color: #0f766e; }
+/* classic-light: el overline va sobre --bg-primary (#f9f8f6), no blanco puro */
+html[data-theme="classic-light"] .hero-overline { color: #be123c; }
 
 .theme-drawer-inner {
   display: flex;
@@ -856,6 +858,24 @@ section {
   font-size: 0.92rem;
   color: var(--text-muted);
   line-height: 1.55;
+}
+
+/* Folder-style cards (presentaciones): icono de carpeta con acento */
+.folder-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background-color: var(--accent-light);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover .folder-icon {
+  transform: translateY(-2px) scale(1.05);
 }
 
 /* --------------------------------------------------------------------------

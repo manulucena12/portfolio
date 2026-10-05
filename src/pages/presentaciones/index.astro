@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import ThemeDrawer from '../../components/ThemeDrawer.astro';
+
+// Listado: SOLO nombres. Ni PDFs ni reveal.js aparecen en este HTML,
+// así que el navegador no descarga nada hasta entrar a cada presentación.
+---
+<BaseLayout
+  title="Presentaciones"
+  description="Presentaciones y documentos técnicos de Manuel Lucena: cada una con su documento y sus slides."
+  pathname="/presentaciones/"
+>
+  <ThemeDrawer />
+  <Header minimal />
+  <main>
+    <section class="projects-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">TRABAJOS &amp; DOCENCIA</span>
+          <h2 class="section-title">Presentaciones</h2>
+        </div>
+        <p class="contact-lead">Todavía no hay presentaciones publicadas.</p>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

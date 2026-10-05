@@ -12,7 +12,9 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^7.3.5"
+    "astro": "^7.3.5",
+    "katex": "^0.19.0",
+    "reveal.js": "^6.0.2"
   },
   "allowScripts": {
     "esbuild": true
