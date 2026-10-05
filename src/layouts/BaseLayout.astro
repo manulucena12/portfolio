@@ -1,0 +1,68 @@
+---
+// BaseLayout: MPA pura, 0 JS por defecto.
+// El único JS inline es el anti-FOUC de tema, que corre ANTES del paint.
+import '../styles/global.css';
+
+const {
+  title = 'Manu Lucena | Estudiante de Ingeniería & Profesor',
+  description = 'Portfolio de Manuel Lucena - Estudiante de Ingeniería, Profesor y Fundador de la Academia Aprueba Sin Líos.',
+  image = '/assets/og.jpg',
+  pathname = '/',
+} = Astro.props;
+
+const site = (Astro.site?.toString() ?? '').replace(/\/$/, '');
+const canonical = site ? `${site}${pathname}` : pathname;
+const ogImage = image.startsWith('http') ? image : site ? `${site}${image}` : image;
+---
+
+<!DOCTYPE html>
+<html lang="es" data-theme="classic-light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="author" content="Manuel Lucena" />
+  <link rel="canonical" href={canonical} />
+
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+
+  <link rel="icon" type="image/jpeg" href="/assets/pfp.jpeg" />
+  <link rel="apple-touch-icon" href="/assets/pfp.jpeg" />
+  <meta name="theme-color" content="#f9f8f6" />
+
+  <link rel="preload" href="/fonts/newsreader-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+
+  <!-- Anti-FOUC: setea data-theme ANTES del primer paint. Sin esto, al navegar
+       entre páginas MPA se ve el flash del tema default. 0 dependencias. -->
+  <script is:inline>
+    (function () {
+      try {
+        var saved = localStorage.getItem('portfolio_theme');
+        var theme = saved;
+        if (!theme) {
+          theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'classic-light';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'classic-light');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <slot />
+  <!-- JS vanilla progresivo: solo drawer + idioma + scrollspy. Sin framework. -->
+  <script src="/scripts/site.js" defer></script>
+</body>
+</html>

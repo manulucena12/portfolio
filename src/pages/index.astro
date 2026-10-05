@@ -1,0 +1,150 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import ThemeDrawer from '../components/ThemeDrawer.astro';
+import asl1 from '../assets/asl1.png';
+---
+<BaseLayout title="Manu Lucena | Estudiante de Ingeniería & Profesor" pathname="/">
+  <ThemeDrawer />
+  <Header current="home" />
+  <main>
+    <section id="home" class="hero-section">
+      <div class="container hero-inner">
+        <div class="hero-overline" id="hero-greeting">BUENOS DÍAS, SOY MANU</div>
+        <h1 class="hero-title">
+          <span data-i18n="hero.title1">Estudiante de Ingeniería</span><br />
+          <span class="hero-highlight" data-i18n="hero.title2">&amp; Profesor.</span>
+        </h1>
+        <p class="hero-description">
+          <span data-i18n="hero.descMain">Fundador de la Academia Aprueba Sin Líos, especializada en física universitaria. Me dedico a la enseñanza y al desarrollo de aplicaciones para simplificar conceptos complejos.</span>
+        </p>
+      </div>
+    </section>
+
+    <section id="about" class="about-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag" data-i18n="about.tag">PERFIL &amp; TRAYECTORIA</span>
+          <h2 class="section-title" data-i18n="about.title">Sobre Mí</h2>
+        </div>
+        <div class="about-simple-bio">
+          <p class="about-lead" data-i18n="about.lead">
+            Soy Manuel Lucena. Combino mi formación en Ingeniería con mi pasión por la enseñanza y la tecnología web para transmitir conocimiento de forma estructurada y eficaz.
+          </p>
+        </div>
+        <div class="timelines-grid">
+          <div class="timeline-column">
+            <h3 class="timeline-col-title" data-i18n="about.workTitle">Experiencia Laboral</h3>
+            <div class="timeline-list">
+              <div class="timeline-item">
+                <div class="timeline-dot-wrapper"><span class="timeline-dot pulsing" title="En curso / Active project"></span></div>
+                <span class="timeline-year">2026</span>
+                <div class="timeline-content">
+                  <h4 data-i18n="about.w2026.role">Fundador &amp; Profesor</h4>
+                  <p data-i18n="about.w2026.company">Aprueba Sin Líos</p>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot-wrapper"><span class="timeline-dot"></span></div>
+                <span class="timeline-year">2025</span>
+                <div class="timeline-content">
+                  <h4 data-i18n="about.w2025.role">Profesor Independiente</h4>
+                  <p data-i18n="about.w2025.company">Clases particulares de física &amp; programación</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-column">
+            <h3 class="timeline-col-title" data-i18n="about.eduTitle">Estudios</h3>
+            <div class="timeline-list">
+              <div class="timeline-item">
+                <div class="timeline-dot-wrapper"><span class="timeline-dot"></span></div>
+                <span class="timeline-year">2026 Jan</span>
+                <div class="timeline-content"><h4>Cambridge English C1</h4><p data-i18n="about.c1">Certificación Avanzada de Inglés</p></div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot-wrapper"><span class="timeline-dot"></span></div>
+                <span class="timeline-year">2025 Sep</span>
+                <div class="timeline-content"><h4 data-i18n="about.degree">Grado en Ingeniería Informática</h4><p data-i18n="about.degreeSub">Ingreso en la universidad</p></div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot-wrapper"><span class="timeline-dot"></span></div>
+                <span class="timeline-year">2025 Summer</span>
+                <div class="timeline-content"><h4>AWS Certifications</h4><p>Cloud and AI Practitioner</p></div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot-wrapper"><span class="timeline-dot"></span></div>
+                <span class="timeline-year">2024 Aug</span>
+                <div class="timeline-content"><h4><a href="https://fullstackopen.com/en/" target="_blank" rel="noopener" class="timeline-link">FullStack Open Formation ↗</a></h4><p>University of Helsinki • Deep Dive into Modern Web Dev</p></div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot-wrapper"><span class="timeline-dot"></span></div>
+                <span class="timeline-year">2023 Jul</span>
+                <div class="timeline-content"><h4>Cambridge English B2</h4><p data-i18n="about.b2">First Certificate in English</p></div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot-wrapper"><span class="timeline-dot"></span></div>
+                <span class="timeline-year">2023 Jun</span>
+                <div class="timeline-content"><h4 data-i18n="about.bachiller">Matrícula de Honor</h4><p data-i18n="about.bachillerSub">Excelencia académica en Bachillerato</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="projects-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag" data-i18n="projects.tag">TRABAJOS DESTACADOS</span>
+          <h2 class="section-title" data-i18n="projects.title">Proyectos</h2>
+        </div>
+        <div class="projects-grid">
+          <a href="/proyectos/aprueba-sin-lios/" class="project-card">
+            <div class="project-card-image-wrapper">
+              <Image src={asl1} alt="Vista previa de Aprueba Sin Líos" class="project-card-img" width={720} height={440} widths={[500, 800]} sizes="(max-width: 600px) 90vw, 500px" formats={['avif', 'webp']} loading="lazy" decoding="async" />
+              <div class="project-card-overlay">
+                <span class="view-project-btn" data-i18n="projects.viewMore">Ver detalles del proyecto &rarr;</span>
+              </div>
+            </div>
+            <div class="project-card-content">
+              <h3 class="project-card-title">Academia Aprueba Sin Líos</h3>
+              <p class="project-card-desc" data-i18n="projects.aslDesc">Plataforma complementaria para las clases de alumnos de física, con problemas, exámenes y reservas</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag" data-i18n="contact.tag">CONTACTO &amp; REDES</span>
+          <h2 class="section-title" data-i18n="contact.title">Contacto</h2>
+        </div>
+        <p class="contact-lead" data-i18n="contact.lead">Gracias por interesarte por mí, aquí te dejo sitios donde podemos contactar:</p>
+        <div class="contact-grid">
+          <a href="mailto:mlucenasalas@gmail.com" class="contact-item">
+            <div class="contact-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            </div>
+            <div class="contact-info"><span class="contact-label">Email</span><span class="contact-value">mlucenasalas@gmail.com</span></div>
+          </a>
+          <a href="https://wa.me/34680389188" target="_blank" rel="noopener" class="contact-item">
+            <div class="contact-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+            </div>
+            <div class="contact-info"><span class="contact-label">WhatsApp</span><span class="contact-value">680 38 91 88</span></div>
+          </a>
+          <a href="https://www.linkedin.com/in/manuellucena12/" target="_blank" rel="noopener" class="contact-item">
+            <div class="contact-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            </div>
+            <div class="contact-info"><span class="contact-label">LinkedIn</span><span class="contact-value">manuellucena12 ↗</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

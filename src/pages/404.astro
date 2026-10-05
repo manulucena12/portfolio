@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import ThemeDrawer from '../components/ThemeDrawer.astro';
+---
+<BaseLayout title="404 | Manuel Lucena" description="Página no encontrada." pathname="/404/">
+  <ThemeDrawer />
+  <Header current="home" />
+  <main>
+    <section class="hero-section">
+      <div class="container hero-inner">
+        <div class="hero-overline">404</div>
+        <h1 class="hero-title">Página no encontrada.</h1>
+        <p class="hero-description">La ruta que buscás no existe. Volvé al <a href="/" style="text-decoration: underline;">inicio</a>.</p>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import ThemeDrawer from '../../components/ThemeDrawer.astro';
+---
+<BaseLayout
+  title="Charlas | Manuel Lucena"
+  description="Charlas y presentaciones de Manuel Lucena. Algunas usarán reveal.js solo en su página, sin cargar JS en el resto del sitio."
+  pathname="/charlas/"
+>
+  <ThemeDrawer />
+  <Header current="charlas" />
+  <main>
+    <section class="projects-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">CHARLAS &amp; DOCENCIA</span>
+          <h2 class="section-title">Charlas</h2>
+        </div>
+        <p class="contact-lead" style="margin-bottom: 2rem;">
+          Todavía no hay charlas publicadas. Cuando subas una, creá <code>src/pages/charlas/mi-charla.astro</code>
+          con el layout de slides. Solo esa página cargará reveal.js — el resto sigue en 0 JS.
+        </p>
+        <div class="projects-grid">
+          <div class="project-card" style="padding: 1.5rem;">
+            <h3 class="project-card-title">Cómo agregar reveal.js después (sin ensuciar el sitio)</h3>
+            <p class="project-card-desc">
+              1. <code>bun add reveal.js</code><br />
+              2. Crear <code>src/layouts/SlidesLayout.astro</code> que importe reveal.js + su CSS.<br />
+              3. Usar ese layout SOLO en la charla. Astro hace code-splitting automático.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

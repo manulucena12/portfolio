@@ -1,0 +1,84 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import ThemeDrawer from '../../components/ThemeDrawer.astro';
+import asl1 from '../../assets/asl1.png';
+import asl2 from '../../assets/asl2.png';
+import asl3 from '../../assets/asl3.png';
+import asl4 from '../../assets/asl4.png';
+import asl5 from '../../assets/asl5.png';
+---
+<BaseLayout
+  title="Aprueba Sin Líos | Proyecto de Manuel Lucena"
+  description="Detalles del proyecto Aprueba Sin Líos - Plataforma y academia de física universitaria fundada por Manuel Lucena."
+  pathname="/proyectos/aprueba-sin-lios/"
+>
+  <ThemeDrawer />
+  <Header minimal />
+  <main class="project-detail-page">
+    <div class="container project-single-container">
+      <div class="project-header-centered">
+        <a href="/#projects" class="back-link">&larr; <span data-i18n="asl.back">Volver al portfolio</span></a>
+        <h1 class="project-detail-title">Aprueba Sin Líos</h1>
+        <figure class="project-hero-figure">
+          <Image src={asl1} alt="Vista general de Aprueba Sin Líos" class="project-inline-img" width={820} height={500} widths={[820]} formats={['avif', 'webp']} loading="eager" fetchpriority="high" decoding="async" />
+        </figure>
+      </div>
+
+      <div class="project-body">
+        <h2 data-i18n="asl.aboutTitle">Sobre el proyecto</h2>
+        <p data-i18n="asl.p1">Aprueba Sin Líos es una plataforma creada con el fin de ayudar a estudiantes de ingeniería a aprobar asignaturas con una alta tasa de suspensos. Al principio empecé ofreciendo Física, Programación y Álgebra; sin embargo, decidí especializarme en física, pues aparte de ser la asignatura con mayor demanda, es la que mejor entiendo.</p>
+        <p data-i18n="asl.p2">Además de las clases, buscaba una plataforma que me diese la oportunidad de subir problemas resueltos, documentos y clases. El problema es que no había nada en el mercado que ofreciese lo que buscaba, entonces aproveché mis conocimientos para desarrollar una plataforma que cumpliera con lo que yo quería.</p>
+        <p data-i18n="asl.p3">Lo primero fue desarrollar problemas tipo de física para que los alumnos puedan practicar mientras no doy clases, la estructura es la siguiente:</p>
+
+        <figure class="project-inline-figure">
+          <Image src={asl2} alt="Estructura de problemas tipo de física" class="project-inline-img" width={820} height={500} widths={[820]} formats={['avif', 'webp']} loading="lazy" decoding="async" />
+        </figure>
+
+        <p data-i18n="asl.p4">Primero quería mostrar el problema para que el estudiante intente resolverlo por su cuenta, y después ofrecer una solución detallada que tendría lo siguiente:</p>
+
+        <figure class="project-inline-figure">
+          <Image src={asl3} alt="Detalle de solución de problema" class="project-inline-img" width={820} height={500} widths={[820]} formats={['avif', 'webp']} loading="lazy" decoding="async" />
+        </figure>
+
+        <ul class="project-feature-list">
+          <li data-i18n="asl.solItem1">Datos del problema recopilados</li>
+          <li data-i18n="asl.solItem2">Leyes utilizadas para la solución</li>
+          <li data-i18n="asl.solItem3">Solución paso a paso utilizando todo lo obtenido</li>
+        </ul>
+
+        <p data-i18n="asl.p5">Además noté que solo con la solución no iba a ser suficiente, tenía que ayudar al alumno aunque no estuviera ahí, opté por implementar un asistente cuya función es guiar al alumno para entender la solución.</p>
+
+        <figure class="project-inline-figure figure-compact">
+          <Image src={asl4} alt="Asistente de estudio para guiar al alumno" class="project-inline-img" width={440} height={600} widths={[440]} formats={['avif', 'webp']} loading="lazy" decoding="async" />
+        </figure>
+
+        <p data-i18n="asl.p6">He ido implementando más contenido complementario a las clases, formularios y exámenes propios que uso en las clases, los alumnos pueden acceder a ellos mientras explico la solución paso a paso.</p>
+
+        <figure class="project-inline-figure">
+          <Image src={asl5} alt="Contenido complementario, formularios y exámenes" class="project-inline-img" width={820} height={500} widths={[820]} formats={['avif', 'webp']} loading="lazy" decoding="async" />
+        </figure>
+
+        <p data-i18n="asl.p7">Por último tuve que implementar un sistema de reservas, pues fui estafado por una alumna y entendí que la solución era implementar un sistema que me permitiese tener el control de las clases.</p>
+        <p data-i18n="asl.p8">Sigo manteniendo la aplicación para que esté actualizada y cumpla tanto con mis necesidades como las de los alumnos; he intentado implementar nuevas funciones como un generador de problemas usando inteligencia artificial, pero aún está en fase beta.</p>
+
+        <h3 data-i18n="asl.invTitle" style="margin-top: 1.5rem; font-family: var(--font-serif); font-size: 1.6rem;">Inversiones en el negocio</h3>
+        <p data-i18n="asl.p9">Lo que gano con las clases se reinvierte con el fin de mejorar el negocio, algunas inversiones fueron:</p>
+
+        <ul class="project-feature-list">
+          <li data-i18n="asl.invItem1">Tablet para poder grabar las clases</li>
+          <li data-i18n="asl.invItem2">Micrófono para poder dar clases en línea</li>
+          <li data-i18n="asl.invItem3">Anuncios para poder promocionar las clases</li>
+          <li data-i18n="asl.invItem4">Formularios como lead magnet</li>
+        </ul>
+
+        <div class="project-cta-wrapper">
+          <a href="https://apruebasinlios.es" target="_blank" rel="noopener" class="btn-primary" data-i18n="asl.visitBtn">
+            Visitar apruebasinlios.es &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

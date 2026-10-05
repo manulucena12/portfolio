@@ -1,0 +1,81 @@
+---
+// Drawer de temas: HTML estático, la interactividad vive en /public/scripts/site.js (vanilla).
+---
+<div id="theme-drawer" class="theme-drawer" role="region" aria-label="Selector de temas / Theme selector">
+  <div class="theme-drawer-inner container">
+    <div class="theme-drawer-header">
+      <span class="theme-drawer-title" data-i18n="theme.selectTitle">SELECCIONAR TEMA / SELECT THEME</span>
+      <button id="close-theme-drawer" class="theme-drawer-close" aria-label="Cerrar / Close">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <div class="theme-options-grid">
+      <button class="theme-card active" data-theme-id="classic-light">
+        <span class="theme-card-name">Classic Light</span>
+        <div class="theme-swatch">
+          <span style="background: #f9f8f6;"></span>
+          <span style="background: #e11d48;"></span>
+          <span style="background: #0d9488;"></span>
+          <span style="background: #111827;"></span>
+        </div>
+      </button>
+      <button class="theme-card" data-theme-id="dark">
+        <span class="theme-card-name">Dark Slate</span>
+        <div class="theme-swatch">
+          <span style="background: #0f172a;"></span>
+          <span style="background: #f43f5e;"></span>
+          <span style="background: #06b6d4;"></span>
+          <span style="background: #f8fafc;"></span>
+        </div>
+      </button>
+      <button class="theme-card" data-theme-id="koopa-beach">
+        <span class="theme-card-name">Koopa Beach</span>
+        <div class="theme-swatch">
+          <span style="background: #f0f9ff;"></span>
+          <span style="background: #0ea5e9;"></span>
+          <span style="background: #0284c7;"></span>
+          <span style="background: #0c4a6e;"></span>
+        </div>
+      </button>
+      <button class="theme-card" data-theme-id="choco-mountain">
+        <span class="theme-card-name">Choco Mountain</span>
+        <div class="theme-swatch">
+          <span style="background: #fcf8f2;"></span>
+          <span style="background: #c25e00;"></span>
+          <span style="background: #854d0e;"></span>
+          <span style="background: #3b2f2f;"></span>
+        </div>
+      </button>
+      <button class="theme-card" data-theme-id="bowsers-castle">
+        <span class="theme-card-name">Bowser's Castle</span>
+        <div class="theme-swatch">
+          <span style="background: #09090b;"></span>
+          <span style="background: #a855f7;"></span>
+          <span style="background: #22c55e;"></span>
+          <span style="background: #fafafa;"></span>
+        </div>
+      </button>
+      <button class="theme-card" data-theme-id="yoshi-valley">
+        <span class="theme-card-name">Yoshi Valley</span>
+        <div class="theme-swatch">
+          <span style="background: #f4f7f4;"></span>
+          <span style="background: #10b981;"></span>
+          <span style="background: #059669;"></span>
+          <span style="background: #143823;"></span>
+        </div>
+      </button>
+      <button class="theme-card" data-theme-id="hacker-news">
+        <span class="theme-card-name">Hacker Terminal</span>
+        <div class="theme-swatch">
+          <span style="background: #121212;"></span>
+          <span style="background: #ff6600;"></span>
+          <span style="background: #f97316;"></span>
+          <span style="background: #e2e8f0;"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
